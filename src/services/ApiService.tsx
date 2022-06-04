@@ -4,7 +4,7 @@ export const getAll = async ():Promise<Character[]> => {
   if (localStorage.getItem('data')) {
     return JSON.parse(localStorage.getItem('data') || '');
   }
-  const response = await fetch('http://hp-api.herokuapp.com/api/characters');
+  const response = await fetch('https://hp-api.herokuapp.com/api/characters');
   const data = await response.json();
   localStorage.setItem('data', JSON.stringify(data));
   return data;
