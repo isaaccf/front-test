@@ -1,6 +1,8 @@
 import { Character } from "../../models/Character";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+import styles from "./style.module.css";
 
 type Props = {
   data: Character[],
@@ -17,7 +19,7 @@ const sliceData = (data: any[], page: number, itemsPerPage: number = DEFAULT_ITE
   return data.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 };
 
-const useTable = (data: any[], page: number, itemsPerPage: number = DEFAULT_ITEMS_PAGE):{ slice:Character[], range:number[] } => {
+const useTable = (data: any[], page: number, itemsPerPage: number = DEFAULT_ITEMS_PAGE, order:{key:string, direction:string}):{ slice:Character[], range:number[] } => {
   const [tableRange, setTableRange] = useState<number[]>([]);
   const [slice, setSlice] = useState<Character[]>([]);
 
@@ -27,17 +29,49 @@ const useTable = (data: any[], page: number, itemsPerPage: number = DEFAULT_ITEM
 
     const slice = sliceData(data, page, itemsPerPage);
     setSlice([...slice]);
-  }, [data, setTableRange, page, setSlice]);
+  }, [data, setTableRange, page, setSlice, order]);
 
   return { slice, range: tableRange };
 };
 
+const orderData = (data: any[], order:{key:string, direction:string}, orderField:string, orderDirection:string):Character[] => {
+  let dataSorted:Character[] = [];
+  console.log(orderField)
+  if (orderDirection === 'desc') {
+    dataSorted = data.sort((a, b) => {
+      if(a[orderField] > b[orderField]) {
+        return 1;
+      } else if(a[orderField] < b[orderField]) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+  }
+  else {
+    dataSorted = data.sort((a, b) => {
+      if(a[orderField] < b[orderField]) {
+        return 1;
+      } else if(a[orderField] > b[orderField]) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+  }
+  console.log(dataSorted);
+  return dataSorted;
+}
+
 const Table = (props:Props) => {
-
+  const [data, setData] = useState<Character[]>([]);
   const [page, setPage] = useState<number>(1);
-  const { slice, range } = useTable(props.data, page, props.itemsPerPage);
+  const [order, setOrder] = useState<{key:string, direction:string}>({key:'', direction:''});
+  const { slice, range } = useTable(data, page, props.itemsPerPage, order);
 
-  
+  useEffect(() => {
+    setData(props.data);
+  }, [props]);
 
   useEffect(() => {
     if (slice.length < 1 && page !== 1) {
@@ -45,13 +79,21 @@ const Table = (props:Props) => {
     }
   }, [slice, page, setPage]);
 
+  const requestSort = (key:string) => {
+    let newDirection = order.direction === '' ? 'desc' : order.direction === 'desc' ? 'asc' : order.direction === 'asc' ? 'desc' : 'asc';
+    setOrder({key: key, direction: newDirection});
+    console.log(`order: ${order.direction} - newDirection: ${newDirection} - key:${order.key}`);
+    const newData = orderData(data, order, key, newDirection);
+    setData(newData);
+  }
+
   return (
     <>
       <table>
         <thead>
-          <th>
-            <td>Name</td>
-          </th>
+          <tr>
+            <th onClick={() => requestSort('name')}>Name</th>
+          </tr>
         </thead>
         <tbody>
           {slice.map((e)=> {
@@ -68,6 +110,9 @@ const Table = (props:Props) => {
       {range.map((el, index) => (
         <button
           key={index}
+          className={`${styles.button} ${
+            page === el ? styles.activeButton : styles.inactiveButton
+          }`}
           onClick={() => setPage(el)}
         >
           {el}
