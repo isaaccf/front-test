@@ -92,6 +92,7 @@ const Table = (props: Props) => {
   const { slice, range } = useTable(data, page, props.itemsPerPage, order);
 
   useEffect(() => {
+    console.log(props.data);
     setData(props.data);
   }, [props]);
 
