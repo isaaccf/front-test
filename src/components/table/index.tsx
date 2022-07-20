@@ -1,6 +1,6 @@
 import { Character } from "../../models/Character";
 import { Link } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import styles from "./style.module.css";
 
