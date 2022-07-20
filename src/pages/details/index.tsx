@@ -8,17 +8,17 @@ const Details = () => {
   const [chraracterData, setCharacterData] = useState<Character>();
 
   useEffect(() => {
-    setCharacterData(getByName(urlParams.name ||''));
-  }, [])
+    setCharacterData(getByName(urlParams.name || ""));
+  }, [urlParams]);
 
   return (
     <div>
-      DETAILS {chraracterData?.name}<br />
+      DETAILS {chraracterData?.name}
+      <br />
       House: {chraracterData?.house} <br />
       <Link to="/">Go to Index</Link>
     </div>
   );
-  }
-  
-  export default Details;
-  
+};
+
+export default Details;

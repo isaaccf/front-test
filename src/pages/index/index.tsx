@@ -7,15 +7,14 @@ const Index = () => {
   const [data, setData] = useState<Character[]>([]);
 
   useEffect(() => {
-    getAll().then(setData)
-  }, [])
-
+    getAll().then(setData);
+  }, []);
 
   return (
     <div>
       <Table data={data} />
     </div>
   );
-}
+};
 
 export default Index;
