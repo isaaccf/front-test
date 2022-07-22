@@ -5,7 +5,8 @@ export const getAll = async (): Promise<Character[]> => {
     return JSON.parse(localStorage.getItem("data") || "");
   }
   const response = await fetch("https://hp-api.herokuapp.com/api/characters");
-  const data = await response.json();
+  let data = await response.json();
+  data = data.map((el: Character) => ({...el, id: Math.random()}))
   localStorage.setItem("data", JSON.stringify(data));
   return data;
 };
@@ -17,7 +18,7 @@ export const getByName = (name: string): Character => {
 };
 
 export const searchCharacter = (search: string): Character[] => {
-  const data = JSON.parse(localStorage.getItem("data") || "");
+  const data = JSON.parse(localStorage.getItem("data") || "[]");
   const result = data.filter((e: Character) => e.name.toLowerCase().includes(search.toLowerCase()));
   return result.length >= 1 ? result : null;
 };

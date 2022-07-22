@@ -21,7 +21,7 @@ const Index = () => {
       <h1>Harry Potter Characters</h1>
       <div>
         <Searcher updateSearch={setSearch} />
-        <Table data={data} />
+        <Table data={data || []} />
       </div>
     </>
   );

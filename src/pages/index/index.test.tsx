@@ -1,9 +1,9 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import '@testing-library/jest-dom'
+import Index from './index';
 
 test('renders app title', () => {
-  render(<App />);
+  render(<Index />);
   const linkElement = screen.getByText(/Harry Potter Characters/i);
   expect(linkElement).toBeInTheDocument();
 });

@@ -1,4 +1,4 @@
-import { Character } from "../../models/Character";
+import { Character } from "models/Character";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -12,7 +12,7 @@ type Props = {
 const DEFAULT_ITEMS_PAGE = 10;
 
 const calculateRange = (
-  data: any[],
+  data: Character[] = [],
   itemsPerPage: number = DEFAULT_ITEMS_PAGE
 ): number[] => {
   return Array.from(
@@ -92,7 +92,6 @@ const Table = (props: Props) => {
   const { slice, range } = useTable(data, page, props.itemsPerPage, order);
 
   useEffect(() => {
-    console.log(props.data);
     setData(props.data);
   }, [props]);
 
@@ -112,9 +111,6 @@ const Table = (props: Props) => {
         ? "desc"
         : "asc";
     setOrder({ key: key, direction: newDirection });
-    console.log(
-      `order: ${order.direction} - newDirection: ${newDirection} - key:${order.key}`
-    );
     const newData = orderData(data, order, key, newDirection);
     setData(newData);
   };
@@ -130,7 +126,7 @@ const Table = (props: Props) => {
         <tbody>
           {slice.map((e) => {
             return (
-              <tr key={e.name}>
+              <tr key={e.id}>
                 <td>{e.name}</td>
                 <td>
                   <Link to={`/details/${e.name}`}>Go to Details</Link>

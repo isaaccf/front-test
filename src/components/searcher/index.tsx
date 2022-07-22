@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {MouseEventHandler, useState} from "react";
 
 type Props = {
   updateSearch: Function;
@@ -9,11 +9,11 @@ export default (props: Props) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    props.updateSearch(search);
   } 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    props.updateSearch(e.target.value);
   } 
 
   return (
