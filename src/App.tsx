@@ -3,7 +3,9 @@ import './App.css';
 
 const App = () => {
   return (
-      <Router></Router>
+      <div className="container">
+        <Router></Router>
+      </div>
   );
 }
 

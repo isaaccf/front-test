@@ -2,7 +2,8 @@ import { Character } from "models/Character";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import styles from "./style.module.css";
+import "./index.css";
+import { Pagination } from "@mui/material";
 
 type Props = {
   data: Character[];
@@ -115,12 +116,19 @@ const Table = (props: Props) => {
     setData(newData);
   };
 
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  }
+
   return (
-    <>
+    <div className="styled-table">
       <table>
         <thead>
           <tr>
-            <th onClick={() => requestSort("name")}>Name</th>
+            <th className="center" onClick={() => requestSort("name")}>Name</th>
+            <th className="center" onClick={() => requestSort("house")}>House</th>
+            <th className="center" onClick={() => requestSort("dateOfBirth")}>Birth</th>
+            <th className="center">Alive</th>
           </tr>
         </thead>
         <tbody>
@@ -128,28 +136,19 @@ const Table = (props: Props) => {
             return (
               <tr key={e.id}>
                 <td>{e.name}</td>
+                <td>{e.house}</td>
+                <td className="center">{e.dateOfBirth}</td>
+                <td className="center">{e.alive ? `✔️​` : `☠️`}</td>
                 <td>
-                  <Link to={`/details/${e.name}`}>Go to Details</Link>
+                  <Link to={`/details/${e.name}`}>Details</Link>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <div>
-        {range.map((el, index) => (
-          <button
-            key={index}
-            className={`${styles.button} ${
-              page === el ? styles.activeButton : styles.inactiveButton
-            }`}
-            onClick={() => setPage(el)}
-          >
-            {el}
-          </button>
-        ))}
-      </div>
-    </>
+      <Pagination className="paginator" variant="outlined" showFirstButton showLastButton shape="rounded" size="large" count={range.length} page={page} onChange={handlePageChange} />
+    </div>
   );
 };
 

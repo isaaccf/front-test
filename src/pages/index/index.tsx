@@ -4,6 +4,8 @@ import { Character } from "models/Character";
 import { getAll, searchCharacter } from "services/ApiService";
 import Searcher from "components/searcher";
 
+import './index.css';
+
 const Index = () => {
   const [data, setData] = useState<Character[]>([]);
   const [search, setSearch] = useState('');
@@ -19,7 +21,7 @@ const Index = () => {
   return (
     <>
       <h1>Harry Potter Characters</h1>
-      <div>
+      <div className="table">
         <Searcher updateSearch={setSearch} />
         <Table data={data || []} />
       </div>
