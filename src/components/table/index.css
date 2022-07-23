@@ -5,7 +5,7 @@
 .styled-table {
   background-color: rgba(114, 125, 179, 0.719);
   border-collapse: collapse;
-  padding: 25px;
+  padding: 0 25px 10px 25px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
   display: flex;
@@ -40,4 +40,18 @@
 
 .center {
   text-align: center;
+}
+
+@media (max-width: 624px) {
+  .styled-table td:nth-child(3),
+  .styled-table th:nth-child(3) {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .styled-table td:nth-child(2),
+  .styled-table th:nth-child(2) {
+    display: none;
+  }
 }
