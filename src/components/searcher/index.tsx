@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import { Search, Clear } from '@mui/icons-material';
+import './index.css'
 
 type Props = {
   updateSearch: Function;
@@ -18,8 +20,10 @@ export default (props: Props) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Search..." onChange={handleChange} value={search} />
+      <form onSubmit={handleSubmit} className="wrapper">
+        <Search className="icon-left" />
+        <Clear className="icon-right" />
+        <input className="search" type="text" placeholder="Search..." onChange={handleChange} value={search} />
       </form>
     </>
   )
