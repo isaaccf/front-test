@@ -34,19 +34,19 @@ const useTable = (
   page: number,
   itemsPerPage: number = DEFAULT_ITEMS_PAGE,
   order: { key: string; direction: string }
-): { slice: Character[]; range: number[] } => {
+): { pageData: Character[]; range: number[] } => {
   const [tableRange, setTableRange] = useState<number[]>([]);
-  const [slice, setSlice] = useState<Character[]>([]);
+  const [pageData, setPageData] = useState<Character[]>([]);
 
   useEffect(() => {
     const range = calculateRange(data, itemsPerPage);
     setTableRange([...range]);
 
     const slice = sliceData(data, page, itemsPerPage);
-    setSlice([...slice]);
-  }, [data, setTableRange, page, setSlice, order, itemsPerPage]);
+    setPageData([...slice]);
+  }, [data, setTableRange, page, setPageData, order, itemsPerPage]);
 
-  return { slice, range: tableRange };
+  return { pageData, range: tableRange };
 };
 
 const orderData = (
@@ -89,17 +89,17 @@ const Table = (props: Props) => {
     key: "",
     direction: "",
   });
-  const { slice, range } = useTable(data, page, props.itemsPerPage, order);
+  const { pageData, range } = useTable(data, page, props.itemsPerPage, order);
 
   useEffect(() => {
     setData(props.data);
   }, [props]);
 
   useEffect(() => {
-    if (slice.length < 1 && page !== 1) {
+    if (pageData.length < 1 && page !== 1) {
       setPage(page - 1);
     }
-  }, [slice, page, setPage]);
+  }, [pageData, page, setPage]);
 
   const requestSort = (key: string) => {
     let newDirection =
@@ -124,7 +124,7 @@ const Table = (props: Props) => {
           </tr>
         </thead>
         <tbody>
-          {slice.map((e) => {
+          {pageData.map((e) => {
             return (
               <tr key={e.id}>
                 <td>{e.name}</td>
