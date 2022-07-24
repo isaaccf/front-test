@@ -1,0 +1,115 @@
+.character-data-warpper {
+  display: flex;
+  justify-content: center; 
+}
+
+.character-data {
+  align-self: center;
+  width: 60vw;
+  background-color: rgba(114, 125, 179, 0.719);
+  border-collapse: collapse;
+  padding: 0 25px 10px 25px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    'name name'
+    'image basic-data'
+    'wand-information wand-information'
+    'return return'
+}
+
+@media (max-width: 715px) {
+  .character-data {
+    width: 90vw;
+  }
+}
+
+@media (max-width: 400px) {
+  .character-data {
+    width: 100vw;
+  }
+
+  .image img {
+    max-height: 50%;
+  }
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+}
+
+.image img {
+  height: 100%;
+  max-height: 300px;
+}
+
+.character-name {
+  grid-area: name;
+  color: white;
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin: 15px;
+}
+
+.basic-data, .wand-information {
+  color: #fdfdfd;
+  grid-area: basic-data;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.basic-data .element,
+.wand-information .element {
+  padding: 5px;
+}
+
+.basic-data .element .title,
+.wand-information .element .title {
+  font-weight: bold;
+}
+
+.basic-data .element .icon {
+  padding-top: 0px;
+  font-size: 1em;
+}
+
+.house-image-container {
+  display: flex;
+  justify-content: center;
+  width: 100%
+}
+
+.house-image-container img {
+  align-self: center;
+  width: 20%;
+}
+
+.wand-information {
+  margin-top: 20px;
+  grid-area: wand-information;
+}
+
+.wand-information .title {
+  width: 100%;
+  text-align: center;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.image {
+  grid-area: image;
+}
+
+.return {
+  grid-area: return;
+  text-align: center;
+  margin-top: 25px;
+  color: white;
+  text-decoration: underline;
+}

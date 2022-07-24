@@ -20,7 +20,6 @@ const Index = () => {
 
   return (
     <>
-      <h1>Harry Potter Characters</h1>
       <div className="table">
         <Searcher updateSearch={setSearch} />
         <Table data={data || []} />
