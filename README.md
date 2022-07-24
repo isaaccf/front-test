@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Deploy
 
-This project is deployed in Vercel. The master branch is avaiable in [https://sdg-front-test.vercel.app/](https://sdg-front-test.vercel.app/)
+This project is deployed in Vercel. The master branch is avaiable in [https://front-test-eight.vercel.app/](https://front-test-eight.vercel.app/)
 
 ## Available Scripts
 
