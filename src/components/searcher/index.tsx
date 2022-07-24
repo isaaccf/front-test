@@ -6,8 +6,10 @@ type Props = {
   updateSearch: Function;
 };
 
+const initialSearch = '';
+
 export default (props: Props) => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(initialSearch);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,13 +18,19 @@ export default (props: Props) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-  } 
+    props.updateSearch(search);
+  }
+
+  const handleResest = (e: React.MouseEvent<HTMLSpanElement>) => {
+    setSearch(initialSearch);
+    props.updateSearch(initialSearch);
+  }
 
   return (
     <>
       <form onSubmit={handleSubmit} className="wrapper">
         <Search className="icon-left" />
-        <Clear className="icon-right" />
+        <span data-testid="clear-span" className={search === '' ? 'hidden' : ''} onClick={handleResest}><Clear className="icon-right" /></span>
         <input className="search" type="text" placeholder="Search..." onChange={handleChange} value={search} />
       </form>
     </>
