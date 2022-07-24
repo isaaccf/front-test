@@ -2,6 +2,7 @@ describe('Index', () => {
   beforeEach(() => {
     cy.intercept('GET', '**/characters', { fixture: 'characters.json' })
     cy.visit('/');
+    cy.wait(500);
   })
 
   it('should load the page', () => {
@@ -25,6 +26,6 @@ describe('Index', () => {
 
   it('should navigate to detail', () => {
     cy.get('table tbody a').first().click();
-    cy.findAllByText(/DETAILS/i).should('have.length', 1);
+    cy.findAllByText(/Harry Potter Characters/i).should('have.length', 1);
   });
 })

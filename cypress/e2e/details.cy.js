@@ -5,28 +5,32 @@ describe('Detail', () => {
   })
 
   it('should load the page', () => {
+    cy.wait(500);
     cy.get('table tbody a').first().click();
     cy.findAllByText(/Harry Potter/i).should('have.length', 2);
   });
 
   it('should go to index', () => {
+    cy.wait(500);
     cy.get('table tbody a').first().click();
-    cy.get('a').first().click();
-    cy.findAllByText(/Harry Potter Characters/i).should('have.length', 1);
+    cy.get('.return').first().should('have.attr', 'href').should('eq', '/');
   });
 
   it('should show gryffindor image', () => {
-    cy.get('table tbody a').first().click();
+    cy.wait(500);
+    cy.visit('/details/Harry Potter');
     cy.get('.house-image').should('have.attr', 'src').should('include','gryffindor');
   });
 
   it('should have wand information', () => {
-    cy.get('table tbody a').first().click();
+    cy.wait(500);
+    cy.visit('/details/Harry Potter');
     cy.findAllByText(/Wand information/i).should('have.length', 1);
   });
 
   it('should hide wand information if character doesn\'t have it', () => {
-    cy.get('table tbody a').eq(1).click();
+    cy.wait(500);
+    cy.visit('/details/Hermione Granger');
     cy.findAllByText(/Wand information/i).should('have.length', 0);
   });
 })
