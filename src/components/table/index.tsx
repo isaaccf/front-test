@@ -1,7 +1,7 @@
 import { Character } from "models/Character";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {Done, Clear} from '@mui/icons-material';
+import { Done, Clear, KeyboardDoubleArrowRight } from '@mui/icons-material';
 
 import "./index.css";
 import { Pagination } from "@mui/material";
@@ -140,8 +140,8 @@ const Table = (props: Props) => {
                 <td>{e.house}</td>
                 <td className="center">{e.dateOfBirth}</td>
                 <td className="center">{e.alive ? <Done /> : <Clear />}</td>
-                <td>
-                  <Link to={`/details/${e.name}`}>Details</Link>
+                <td className="center">
+                  <Link to={`/details/${e.name}`}><KeyboardDoubleArrowRight /></Link>
                 </td>
               </tr>
             );
