@@ -19,6 +19,6 @@ export const getByName = (name: string): Character => {
 
 export const searchCharacter = (search: string): Character[] => {
   const data = JSON.parse(localStorage.getItem("data") || "[]");
-  const result = data.filter((e: Character) => e.name.toLowerCase().includes(search.toLowerCase()));
+  const result = data.filter((e: Character) => e.name.toLowerCase().includes(search?.toLowerCase()));
   return result.length >= 1 ? result : null;
 };

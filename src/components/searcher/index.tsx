@@ -13,7 +13,7 @@ export default (props: Props) => {
 
   useEffect(() => {
     setSearch(sessionStorage.getItem('lastSearch') || '');
-    if (sessionStorage.getItem('lastSearch') !== '') {
+    if (sessionStorage.getItem('lastSearch') && sessionStorage.getItem('lastSearch') !== '') {
       props.updateSearch(sessionStorage.getItem('lastSearch'));
     }
   }, []);
