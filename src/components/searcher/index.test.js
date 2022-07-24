@@ -4,7 +4,9 @@ import Searcher from './index';
 
 describe('searcher test', () => {
   it('should create the component', () => {
-    render(<Searcher />);
+    const submitHandler = jest.fn();
+
+    render(<Searcher updateSearch={submitHandler} />);
     expect(screen.getByPlaceholderText('Search...')).toBeVisible();
   });
 
